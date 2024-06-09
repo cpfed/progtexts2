@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: progtexts2
   labels:
     app: progtexts2
-  name: progtexts2
 spec:
   replicas: 1
   selector:
@@ -13,10 +13,14 @@ spec:
     metadata:
       labels:
         app: progtexts2
+        app.kubernetes.io/name: progtexts2
     spec:
       containers:
         - image: zharaskhan/progtexts2-master
+          imagePullPolicy: "Always"
           name: progtexts2
           ports:
             - containerPort: 80
+              name: progtexts2-svc
+          resources: {}
       restartPolicy: Always
