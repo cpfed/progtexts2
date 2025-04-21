@@ -9,7 +9,7 @@ spec:
   - name: http
     protocol: TCP
     port: 31743
-    targetPort: progtexts2-nginx-svc
+    targetPort: prog-nginx-svc
   type: ClusterIP
 ---
 
@@ -28,12 +28,12 @@ spec:
     secretName: progtexts2-tls-secret-random-string-for-security
   rules:
   - host: notes.cpfed.kz
-  http:
-    paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: progtexts2
-            port:
-              number: 31743
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: progtexts2
+              port:
+                number: 31743
