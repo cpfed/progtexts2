@@ -18,7 +18,7 @@ kind: Ingress
 metadata:
   name: progtexts2-nginx-ingress
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-progtexts2"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
