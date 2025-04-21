@@ -9,5 +9,31 @@ spec:
   - name: http
     protocol: TCP
     port: 31743
-    targetPort: progtexts2-svc
-  type: LoadBalancer
+    targetPort: progtexts2-nginx-svc
+  type: ClusterIP
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: progtexts2-nginx-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-progtexts2"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - notes.cpfed.kz
+    secretName: progtexts2-tls-secret-random-string-for-security
+  rules:
+  - host: notes.cpfed.kz
+  http:
+    paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: progtexts2
+            port:
+              number: 31743

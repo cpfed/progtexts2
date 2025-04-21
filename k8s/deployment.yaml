@@ -16,11 +16,25 @@ spec:
         app.kubernetes.io/name: progtexts2
     spec:
       containers:
+        - name: nginx
+          image: nginx:stable
+          ports:
+            - containerPort: 80
+              name: progtexts2-nginx-svc
+          volumeMounts:
+            - name: config-vol
+              mountPath: "/etc/nginx/conf.d"
         - image: zharaskhan/progtexts2-master
           imagePullPolicy: "Always"
           name: progtexts2
           ports:
-            - containerPort: 80
-              name: progtexts2-svc
+            - containerPort: 8000
           resources: {}
+      volumes:
+      - name: config-vol
+        configMap:
+          name: nginx-config
+          items:
+            - key: nginx.conf
+              path: nginx.conf
       restartPolicy: Always
