@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: progtexts2-nginx-config
 data:
   nginx.conf: '
 server {
     listen       8080;
     listen       [::]:8080;
     server_name  _;
+    set_real_ip_from 10.42.0.0/16;
+    real_ip_header X-Real-IP;
     client_max_body_size 48M;
   
     add_header X-UA-Compatible "IE=Edge,chrome=1";
